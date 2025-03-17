@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://q7nvsdo0pbdt"]
+
+[ext_resource type="StyleBox" uid="uid://d3wtqiudb7bui" path="res://Features/Menus/Button/button_style_box_flat_hover.tres" id="1_7prww"]
+[ext_resource type="LabelSettings" uid="uid://bqx5suvr88n8i" path="res://Features/Menus/Button/label_settings_button_text.tres" id="1_o8svy"]
+[ext_resource type="StyleBox" uid="uid://b34fa53xo3ue4" path="res://Features/Menus/Button/button_style_box_flat_normal.tres" id="2_2ns85"]
+[ext_resource type="Script" uid="uid://cb5ejumeyjri" path="res://Features/Menus/Button/enhanced_button.gd" id="3_04mls"]
+
+[node name="EnhancedButton" type="Button"]
+offset_right = 408.0
+offset_bottom = 98.0
+theme_override_styles/hover_pressed = ExtResource("1_7prww")
+theme_override_styles/hover = ExtResource("1_7prww")
+theme_override_styles/pressed = ExtResource("1_7prww")
+theme_override_styles/normal = ExtResource("2_2ns85")
+script = ExtResource("3_04mls")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = ExtResource("1_o8svy")
+horizontal_alignment = 1
+vertical_alignment = 1

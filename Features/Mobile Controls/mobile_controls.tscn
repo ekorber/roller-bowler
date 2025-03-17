@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://cojpd60luv4q"]
+
+[ext_resource type="Script" uid="uid://d0acu0nt76t5" path="res://Features/Mobile Controls/mobile_controls.gd" id="1_xiwvn"]
+[ext_resource type="Texture2D" uid="uid://mg1amuejgcdu" path="res://Features/Mobile Controls/Textures/up.png" id="2_g851h"]
+[ext_resource type="Texture2D" uid="uid://d4kdmcoiru6j8" path="res://Features/Mobile Controls/Textures/down.png" id="3_mrrxr"]
+[ext_resource type="Texture2D" uid="uid://cj5a7tkwykih6" path="res://Features/Mobile Controls/Textures/left.png" id="4_fales"]
+[ext_resource type="Texture2D" uid="uid://b4b1u2vp8j8r" path="res://Features/Mobile Controls/Textures/right.png" id="5_idqc1"]
+[ext_resource type="Texture2D" uid="uid://cfd0vyf5crkdr" path="res://Features/Mobile Controls/Textures/pause.png" id="6_1n5qy"]
+
+[node name="MobileControls" type="Node2D"]
+process_mode = 3
+process_priority = 100
+script = ExtResource("1_xiwvn")
+
+[node name="PauseButton" type="TouchScreenButton" parent="."]
+position = Vector2(970, 50)
+scale = Vector2(2.5, 2.5)
+texture_normal = ExtResource("6_1n5qy")
+
+[node name="UpButton" type="TouchScreenButton" parent="."]
+position = Vector2(950, 250)
+scale = Vector2(2, 2)
+texture_normal = ExtResource("2_g851h")
+
+[node name="DownButton" type="TouchScreenButton" parent="."]
+position = Vector2(950, 450)
+scale = Vector2(2, 2)
+texture_normal = ExtResource("3_mrrxr")
+
+[node name="LeftButton" type="TouchScreenButton" parent="."]
+position = Vector2(50, 450)
+scale = Vector2(2, 2)
+texture_normal = ExtResource("4_fales")
+
+[node name="RightButton" type="TouchScreenButton" parent="."]
+position = Vector2(250, 450)
+scale = Vector2(2, 2)
+texture_normal = ExtResource("5_idqc1")
+
+[connection signal="pressed" from="PauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="UpButton" to="." method="_on_up_button_pressed"]
+[connection signal="released" from="UpButton" to="." method="_on_up_button_released"]
+[connection signal="pressed" from="DownButton" to="." method="_on_down_button_pressed"]
+[connection signal="released" from="DownButton" to="." method="_on_down_button_released"]
+[connection signal="pressed" from="LeftButton" to="." method="_on_left_button_pressed"]
+[connection signal="released" from="LeftButton" to="." method="_on_left_button_released"]
+[connection signal="pressed" from="RightButton" to="." method="_on_right_button_pressed"]
+[connection signal="released" from="RightButton" to="." method="_on_right_button_released"]

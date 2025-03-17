@@ -1,0 +1,190 @@
+[gd_scene load_steps=13 format=3 uid="uid://brvbqgk6uhgx1"]
+
+[ext_resource type="StyleBox" uid="uid://b34fa53xo3ue4" path="res://Features/Menus/Button/button_style_box_flat_normal.tres" id="1_646ii"]
+[ext_resource type="Script" uid="uid://xdmctg3kqi8c" path="res://Features/Menus/intro_screen.gd" id="1_ycjsw"]
+[ext_resource type="StyleBox" uid="uid://d3wtqiudb7bui" path="res://Features/Menus/Button/button_style_box_flat_hover.tres" id="2_epdpa"]
+[ext_resource type="AudioStream" uid="uid://t7ych1kctsq" path="res://Features/Menus/Button/click1.ogg" id="4_5p5rn"]
+[ext_resource type="AudioStream" uid="uid://dyh8crdueg7w3" path="res://Features/Menus/Button/click2.ogg" id="5_kknsb"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8pufe"]
+font_size = 46
+font_color = Color(0.886893, 0.89263, 0.886373, 1)
+outline_size = 20
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 20
+shadow_color = Color(0, 0, 0, 0.439216)
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2ltb1"]
+font_size = 26
+font_color = Color(0.886893, 0.89263, 0.886373, 1)
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 20
+shadow_color = Color(0, 0, 0, 0.439216)
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uoyp4"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 5
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="LabelSettings" id="LabelSettings_c0ixk"]
+font_size = 30
+font_color = Color(0.886893, 0.89263, 0.886373, 1)
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 15
+shadow_color = Color(0, 0, 0, 0.439216)
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="Animation" id="Animation_vb4uj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-300, 700)]
+}
+
+[sub_resource type="Animation" id="Animation_0in83"]
+resource_name = "open_popup"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-300, 700), Vector2(-300, -200)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eme2b"]
+_data = {
+&"RESET": SubResource("Animation_vb4uj"),
+&"open_popup": SubResource("Animation_0in83")
+}
+
+[node name="IntroScreen" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ycjsw")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = 700.0
+offset_right = 300.0
+offset_bottom = 1100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("1_646ii")
+
+[node name="Title" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -133.0
+offset_top = 30.0
+offset_right = 133.0
+offset_bottom = 94.0
+grow_horizontal = 2
+text = "Welcome To Cargo Bay"
+label_settings = SubResource("LabelSettings_8pufe")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Instructions" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -271.0
+offset_top = -70.0
+offset_right = 271.0
+offset_bottom = 61.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Cargo is everywhere in the water! Collect and deliver it as fast as you can to earn money! Time is running out!"
+label_settings = SubResource("LabelSettings_2ltb1")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="StartButton" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -96.5
+offset_top = -107.0
+offset_right = 96.5
+offset_bottom = -39.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/disabled = ExtResource("2_epdpa")
+theme_override_styles/hover_pressed = ExtResource("2_epdpa")
+theme_override_styles/hover = ExtResource("2_epdpa")
+theme_override_styles/pressed = ExtResource("2_epdpa")
+theme_override_styles/normal = SubResource("StyleBoxFlat_uoyp4")
+
+[node name="ButtonText" type="Label" parent="Panel/StartButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "START!"
+label_settings = SubResource("LabelSettings_c0ixk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_eme2b")
+}
+
+[node name="ButtonSelect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_5p5rn")
+
+[node name="ButtonClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_kknsb")
+
+[connection signal="mouse_entered" from="Panel/StartButton" to="." method="_on_start_button_mouse_entered"]
+[connection signal="pressed" from="Panel/StartButton" to="." method="_on_start_button_pressed"]

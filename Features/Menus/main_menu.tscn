@@ -1,0 +1,253 @@
+[gd_scene load_steps=24 format=3 uid="uid://cn8euvggxhvur"]
+
+[ext_resource type="Script" uid="uid://cwmstjjdkhama" path="res://Features/Menus/main_menu.gd" id="1_esarw"]
+[ext_resource type="StyleBox" uid="uid://d3wtqiudb7bui" path="res://Features/Menus/Button/button_style_box_flat_hover.tres" id="2_51vv0"]
+[ext_resource type="StyleBox" uid="uid://b34fa53xo3ue4" path="res://Features/Menus/Button/button_style_box_flat_normal.tres" id="3_l8usv"]
+[ext_resource type="PackedScene" uid="uid://dfnuuxtpipakr" path="res://Models/GameReady/ship_wreck.tscn" id="4_47lku"]
+[ext_resource type="PackedScene" uid="uid://q7nvsdo0pbdt" path="res://Features/Menus/Button/EnhancedButton.tscn" id="4_jd5mp"]
+[ext_resource type="Shader" uid="uid://csitot13li8nd" path="res://Shaders/toon_water.gdshader" id="5_lxlqq"]
+[ext_resource type="PackedScene" uid="uid://c8b6t6yi10ppc" path="res://Models/GameReady/Terrain.tscn" id="6_5u07l"]
+[ext_resource type="Script" uid="uid://bd07a6d8eqb1m" path="res://Features/Item Delivery/floating_movement.gd" id="7_vv65i"]
+[ext_resource type="PackedScene" uid="uid://2ilwok03ss4x" path="res://Models/cargo-container-a.glb" id="8_t2168"]
+[ext_resource type="PackedScene" uid="uid://c167va6ts1gjs" path="res://Models/cargo-container-b.glb" id="9_b6njj"]
+[ext_resource type="PackedScene" uid="uid://da2uvxhfvg2pq" path="res://Models/cargo-container-c.glb" id="10_71obc"]
+[ext_resource type="AudioStream" uid="uid://t7ych1kctsq" path="res://Features/Menus/Button/click1.ogg" id="11_oma5y"]
+[ext_resource type="AudioStream" uid="uid://dyh8crdueg7w3" path="res://Features/Menus/Button/click2.ogg" id="12_6qmmh"]
+[ext_resource type="AudioStream" uid="uid://b8towbj6up647" path="res://Audio/Songs/main_menu_song.mp3" id="13_v4dbo"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qmdqp"]
+font_size = 84
+font_color = Color(0.886893, 0.89263, 0.886373, 1)
+outline_size = 20
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 26
+shadow_color = Color(0, 0, 0, 0.439216)
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="LabelSettings" id="LabelSettings_y54xo"]
+font_size = 46
+font_color = Color(0.886893, 0.89263, 0.886373, 1)
+outline_size = 20
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 26
+shadow_color = Color(0, 0, 0, 0.439216)
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8n4le"]
+font_size = 40
+font_color = Color(0.886893, 0.89263, 0.886373, 1)
+outline_size = 20
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 26
+shadow_color = Color(0, 0, 0, 0.439216)
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="LabelSettings" id="LabelSettings_y0hif"]
+font_size = 34
+font_color = Color(0.886893, 0.89263, 0.886373, 1)
+outline_size = 20
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 20
+shadow_color = Color(0, 0, 0, 0.439216)
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7v5fp"]
+sky_top_color = Color(0.138092, 0.51594, 1, 1)
+sky_horizon_color = Color(0.535194, 0.830509, 0.996821, 1)
+ground_bottom_color = Color(0, 0.631373, 0.8, 1)
+ground_horizon_color = Color(0.533333, 0.831373, 0.996078, 1)
+
+[sub_resource type="Sky" id="Sky_kw7de"]
+sky_material = SubResource("ProceduralSkyMaterial_7v5fp")
+
+[sub_resource type="Environment" id="Environment_lqkb1"]
+background_mode = 2
+sky = SubResource("Sky_kw7de")
+fog_light_color = Color(0.323205, 0.647956, 0.920581, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_sfetr"]
+size = Vector2(700, 700)
+subdivide_width = 100
+subdivide_depth = 100
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y3b0j"]
+render_priority = 0
+shader = ExtResource("5_lxlqq")
+shader_parameter/WATER_COL = Color(0.0204064, 0.305988, 0.725221, 1)
+shader_parameter/WATER2_COL = Color(0.0970441, 0.453088, 0.96814, 1)
+shader_parameter/FOAM_COL = Color(0.453066, 0.840871, 0.854409, 1)
+shader_parameter/distortion_speed = 2.0
+shader_parameter/tile = Vector2(300, 300)
+shader_parameter/height = 2.0
+shader_parameter/wave_size = Vector2(10, 5)
+shader_parameter/wave_speed = 4.0
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_esarw")
+
+[node name="TitleLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -244.0
+offset_top = -245.0
+offset_right = 237.0
+offset_bottom = -130.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.83786, 0.30058, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "Crazy Cargo"
+label_settings = SubResource("LabelSettings_qmdqp")
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -96.0
+offset_right = 220.0
+offset_bottom = 241.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.48513, 0.904045, 0.515271, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/hover_pressed = ExtResource("2_51vv0")
+theme_override_styles/hover = ExtResource("2_51vv0")
+theme_override_styles/pressed = ExtResource("2_51vv0")
+theme_override_styles/normal = ExtResource("3_l8usv")
+icon_alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/StartButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Play"
+label_settings = SubResource("LabelSettings_y54xo")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FullscreenButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.873291, 0.726862, 0.96126, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/hover_pressed = ExtResource("2_51vv0")
+theme_override_styles/hover = ExtResource("2_51vv0")
+theme_override_styles/pressed = ExtResource("2_51vv0")
+theme_override_styles/normal = ExtResource("3_l8usv")
+icon_alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/FullscreenButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Toggle Fullscreen"
+label_settings = SubResource("LabelSettings_8n4le")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioButton" parent="VBoxContainer" node_paths=PackedStringArray("button_select_audio", "button_pressed_audio") instance=ExtResource("4_jd5mp")]
+layout_mode = 2
+size_flags_vertical = 3
+button_select_audio = NodePath("../../ButtonSelect")
+button_pressed_audio = NodePath("../../ButtonPressed")
+
+[node name="Label" parent="VBoxContainer/AudioButton" index="0"]
+text = "Mute/Unmute Audio"
+label_settings = SubResource("LabelSettings_y0hif")
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_lqkb1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(0.787764, 0.505533, -0.351944, 0, 0.571358, 0.820701, 0.615978, -0.646518, 0.450095, 0, 99.6927, 0)
+shadow_enabled = true
+
+[node name="ship_wreck" parent="Environment" instance=ExtResource("4_47lku")]
+transform = Transform3D(4.33858, 1.16823, 2.19361, -0.819288, 4.83878, -0.956529, -2.34637, 0.470556, 4.39011, 138.034, 3.31105, -84.3514)
+
+[node name="Water" type="MeshInstance3D" parent="Environment"]
+mesh = SubResource("PlaneMesh_sfetr")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_y3b0j")
+
+[node name="Terrain" parent="Environment" instance=ExtResource("6_5u07l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Environment"]
+transform = Transform3D(0.128911, 0.490075, -0.862096, -0.0151898, 0.870223, 0.492424, 0.99154, -0.0503838, 0.119626, 129.445, 9.433, -102.017)
+
+[node name="Cargo" type="Node3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.26, 0)
+
+[node name="cargo-container-a2" parent="Environment/Cargo" instance=ExtResource("8_t2168")]
+transform = Transform3D(-2.82515, -0.98653, 0.212828, -0.780307, 2.53643, 1.39916, -0.640045, 1.26225, -2.64519, 153.07, 0, -84.432)
+script = ExtResource("7_vv65i")
+
+[node name="cargo-container-b2" parent="Environment/Cargo" instance=ExtResource("9_b6njj")]
+transform = Transform3D(-2.82515, -0.98653, 0.212828, -0.780307, 2.53643, 1.39916, -0.640045, 1.26225, -2.64519, 170.108, 0, -86.036)
+script = ExtResource("7_vv65i")
+
+[node name="cargo-container-c2" parent="Environment/Cargo" instance=ExtResource("10_71obc")]
+transform = Transform3D(-2.82515, -0.98653, 0.212828, -0.780307, 2.53643, 1.39916, -0.640045, 1.26225, -2.64519, 160.566, 0, -101.834)
+script = ExtResource("7_vv65i")
+
+[node name="cargo-container-a3" parent="Environment/Cargo" instance=ExtResource("8_t2168")]
+transform = Transform3D(-2.82515, -0.98653, 0.212828, -0.780307, 2.53643, 1.39916, -0.640045, 1.26225, -2.64519, 163.3, 0, -140.987)
+script = ExtResource("7_vv65i")
+
+[node name="cargo-container-b3" parent="Environment/Cargo" instance=ExtResource("9_b6njj")]
+transform = Transform3D(-2.82515, -0.98653, 0.212828, -0.780307, 2.53643, 1.39916, -0.640045, 1.26225, -2.64519, 142.658, 0, -120.476)
+script = ExtResource("7_vv65i")
+
+[node name="cargo-container-c3" parent="Environment/Cargo" instance=ExtResource("10_71obc")]
+transform = Transform3D(-2.82515, -0.98653, 0.212828, -0.780307, 2.53643, 1.39916, -0.640045, 1.26225, -2.64519, 170.081, 0, -123.659)
+script = ExtResource("7_vv65i")
+
+[node name="ButtonSelect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_oma5y")
+
+[node name="ButtonPressed" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_6qmmh")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_v4dbo")
+volume_db = -5.0
+autoplay = true
+parameters/looping = true
+
+[connection signal="mouse_entered" from="VBoxContainer/StartButton" to="." method="_on_start_button_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/FullscreenButton" to="." method="_on_quit_button_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/FullscreenButton" to="." method="_on_fullscreen_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/AudioButton" to="." method="_on_audio_button_pressed"]
+
+[editable path="VBoxContainer/AudioButton"]

@@ -1,0 +1,179 @@
+[gd_scene load_steps=12 format=3 uid="uid://bujfxfeakx2wi"]
+
+[ext_resource type="Script" uid="uid://dyep0oewornb4" path="res://Features/Menus/pause_menu.gd" id="1_aioqw"]
+[ext_resource type="StyleBox" uid="uid://b34fa53xo3ue4" path="res://Features/Menus/Button/button_style_box_flat_normal.tres" id="2_224c6"]
+[ext_resource type="StyleBox" uid="uid://d3wtqiudb7bui" path="res://Features/Menus/Button/button_style_box_flat_hover.tres" id="2_hjsbu"]
+[ext_resource type="LabelSettings" uid="uid://bqx5suvr88n8i" path="res://Features/Menus/Button/label_settings_button_text.tres" id="4_5733y"]
+[ext_resource type="PackedScene" uid="uid://q7nvsdo0pbdt" path="res://Features/Menus/Button/EnhancedButton.tscn" id="5_1sf0i"]
+[ext_resource type="AudioStream" uid="uid://t7ych1kctsq" path="res://Features/Menus/Button/click1.ogg" id="5_iusn5"]
+[ext_resource type="AudioStream" uid="uid://dyh8crdueg7w3" path="res://Features/Menus/Button/click2.ogg" id="6_p4qxi"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jamt5"]
+font_size = 72
+font_color = Color(0.886893, 0.89263, 0.886373, 1)
+outline_size = 20
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 26
+shadow_color = Color(0, 0, 0, 0.439216)
+shadow_offset = Vector2(5, 5)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vbqam"]
+font_size = 40
+font_color = Color(0.886893, 0.89263, 0.886373, 1)
+outline_size = 20
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 20
+shadow_color = Color(0, 0, 0, 0.439216)
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ccqku"]
+font_size = 34
+font_color = Color(0.886893, 0.89263, 0.886373, 1)
+outline_size = 20
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 20
+shadow_color = Color(0, 0, 0, 0.439216)
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="LabelSettings" id="LabelSettings_jni6g"]
+font_size = 46
+font_color = Color(0.886893, 0.89263, 0.886373, 1)
+outline_size = 20
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 20
+shadow_color = Color(0, 0, 0, 0.439216)
+shadow_offset = Vector2(3, 3)
+
+[node name="PauseMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_aioqw")
+
+[node name="GamePaused" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -238.0
+offset_top = -280.0
+offset_right = 238.0
+offset_bottom = -181.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 100
+text = "Game Paused"
+label_settings = SubResource("LabelSettings_jamt5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -207.0
+offset_top = -158.0
+offset_right = 207.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="ResumeButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 40
+theme_override_styles/hover_pressed = ExtResource("2_hjsbu")
+theme_override_styles/hover = ExtResource("2_hjsbu")
+theme_override_styles/pressed = ExtResource("2_hjsbu")
+theme_override_styles/normal = ExtResource("2_224c6")
+
+[node name="Label" type="Label" parent="VBoxContainer/ResumeButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Resume"
+label_settings = ExtResource("4_5733y")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FullscreenButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 40
+theme_override_styles/hover_pressed = ExtResource("2_hjsbu")
+theme_override_styles/hover = ExtResource("2_hjsbu")
+theme_override_styles/pressed = ExtResource("2_hjsbu")
+theme_override_styles/normal = ExtResource("2_224c6")
+
+[node name="Label" type="Label" parent="VBoxContainer/FullscreenButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Toggle Fullscreen"
+label_settings = SubResource("LabelSettings_vbqam")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioButton" parent="VBoxContainer" node_paths=PackedStringArray("button_select_audio", "button_pressed_audio") instance=ExtResource("5_1sf0i")]
+layout_mode = 2
+size_flags_vertical = 3
+button_select_audio = NodePath("../../ButtonSelect")
+button_pressed_audio = NodePath("../../ButtonPressed")
+
+[node name="Label" parent="VBoxContainer/AudioButton" index="0"]
+text = "Mute/Unmute Audio"
+label_settings = SubResource("LabelSettings_ccqku")
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 40
+theme_override_styles/hover_pressed = ExtResource("2_hjsbu")
+theme_override_styles/hover = ExtResource("2_hjsbu")
+theme_override_styles/pressed = ExtResource("2_hjsbu")
+theme_override_styles/normal = ExtResource("2_224c6")
+
+[node name="Label" type="Label" parent="VBoxContainer/QuitButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit"
+label_settings = SubResource("LabelSettings_jni6g")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonSelect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_iusn5")
+
+[node name="ButtonPressed" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_p4qxi")
+
+[connection signal="mouse_entered" from="VBoxContainer/ResumeButton" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/FullscreenButton" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/FullscreenButton" to="." method="_on_fullscreen_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/AudioButton" to="." method="_on_audio_button_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/QuitButton" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+
+[editable path="VBoxContainer/AudioButton"]
