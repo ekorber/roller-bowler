@@ -18,6 +18,11 @@ config/icon="res://icon.svg"
 [autoload]
 
 LoadingScreen="*res://Features/Loading Screen/loading_screen.tscn"
+PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg", "res://addons/script-ide/plugin.cfg")
 
 [input]
 
