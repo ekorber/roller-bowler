@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://v8qkyqjglt4m"]
+
+[ext_resource type="Script" uid="uid://0eujvuudl1s5" path="res://Features/Player/player.gd" id="1_vguib"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_sb48q"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wbfu4"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_xkndl"]
+
+[node name="Player" type="RigidBody3D" node_paths=PackedStringArray("level_geometry")]
+physics_material_override = SubResource("PhysicsMaterial_sb48q")
+gravity_scale = 5.0
+continuous_cd = true
+script = ExtResource("1_vguib")
+level_geometry = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_wbfu4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("SphereMesh_xkndl")
+skeleton = NodePath("../..")
