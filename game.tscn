@@ -1,0 +1,112 @@
+[gd_scene load_steps=20 format=3 uid="uid://c62mjpfsg8tgh"]
+
+[ext_resource type="Script" uid="uid://0eujvuudl1s5" path="res://Features/Player/player.gd" id="1_7jktm"]
+[ext_resource type="Script" uid="uid://bf5m38iuyvroa" path="res://Features/Game Manager/game_manager.gd" id="1_ryrav"]
+[ext_resource type="Script" uid="uid://dn0d18cd6nid7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="2_ryrav"]
+[ext_resource type="Script" uid="uid://bnn6lju3mydb2" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_eow3j"]
+[ext_resource type="Script" uid="uid://fvsasskjqshp" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_j5wjh"]
+[ext_resource type="PackedScene" uid="uid://bujfxfeakx2wi" path="res://Features/Menus/pause_menu.tscn" id="5_vef74"]
+[ext_resource type="PackedScene" uid="uid://0abunyrp3nnm" path="res://Features/Menus/GameOverScreen.tscn" id="7_eow3j"]
+[ext_resource type="PackedScene" uid="uid://e3hap0r4fxb0" path="res://Features/HUD/hud.tscn" id="8_j5wjh"]
+[ext_resource type="PackedScene" uid="uid://brvbqgk6uhgx1" path="res://Features/Menus/intro_screen.tscn" id="9_vef74"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_sb48q"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wbfu4"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_xkndl"]
+
+[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_sb48q"]
+
+[sub_resource type="Resource" id="Resource_sb48q"]
+script = ExtResource("3_eow3j")
+duration = 1.0
+transition = 0
+ease = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_wbfu4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xkndl"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vef74"]
+
+[sub_resource type="Sky" id="Sky_hve3p"]
+sky_material = SubResource("ProceduralSkyMaterial_vef74")
+
+[sub_resource type="Environment" id="Environment_mfdv2"]
+background_mode = 2
+sky = SubResource("Sky_hve3p")
+
+[node name="Game" type="Node3D"]
+script = ExtResource("1_ryrav")
+time_remaining = 5.0
+
+[node name="Player" type="RigidBody3D" parent="." node_paths=PackedStringArray("level_geometry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.62792, 0)
+physics_material_override = SubResource("PhysicsMaterial_sb48q")
+gravity_scale = 5.0
+continuous_cd = true
+script = ExtResource("1_7jktm")
+level_geometry = NodePath("../Level Geometry")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("SphereShape3D_wbfu4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player/CollisionShape3D"]
+mesh = SubResource("SphereMesh_xkndl")
+skeleton = NodePath("../..")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+physics_interpolation_mode = 1
+transform = Transform3D(-1, 0, 0, 0, 0.961524, 0.274721, 0, 0.274721, -0.961524, 0, 6.62792, -7)
+attributes = SubResource("CameraAttributesPhysical_sb48q")
+
+[node name="PhantomCameraHost" type="Node" parent="Camera3D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("4_j5wjh")
+metadata/_custom_type_script = "uid://fvsasskjqshp"
+
+[node name="PhantomCamera3D" type="Node3D" parent="." node_paths=PackedStringArray("follow_target", "look_at_target")]
+transform = Transform3D(-0.942999, 0, 0, 0, 0.961521, 0.274701, 0, 0.27472, -0.961455, 0, 6.62792, -7)
+top_level = true
+script = ExtResource("2_ryrav")
+follow_mode = 2
+follow_target = NodePath("../Player")
+look_at_mode = 2
+look_at_target = NodePath("../Player")
+tween_resource = SubResource("Resource_sb48q")
+follow_offset = Vector3(0, 3, -7)
+look_at_offset = Vector3(0, 1, 0)
+metadata/_custom_type_script = "uid://dn0d18cd6nid7"
+
+[node name="Level Geometry" type="Node3D" parent="."]
+
+[node name="Floor" type="MeshInstance3D" parent="Level Geometry"]
+transform = Transform3D(20, 0, 0, 0, 100, 0, 0, 0, 100, 0, -50, 0)
+mesh = SubResource("BoxMesh_wbfu4")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Level Geometry/Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level Geometry/Floor/StaticBody3D"]
+shape = SubResource("BoxShape3D_xkndl")
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_mfdv2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(0.787129, -0.585956, 0.192573, 0, 0.312219, 0.95001, -0.616789, -0.74778, 0.245756, 0, 0, 0)
+
+[node name="PauseMenu" parent="." instance=ExtResource("5_vef74")]
+
+[node name="GameOverScreen" parent="." instance=ExtResource("7_eow3j")]
+
+[node name="HUD" parent="." instance=ExtResource("8_j5wjh")]
+
+[node name="IntroScreen" parent="." instance=ExtResource("9_vef74")]
+
+[connection signal="paused" from="PauseMenu" to="HUD" method="hide"]
+[connection signal="unpaused" from="PauseMenu" to="HUD" method="show"]
