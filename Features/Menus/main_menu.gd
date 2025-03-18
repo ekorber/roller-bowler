@@ -1,12 +1,11 @@
 extends Control
 
-const GAME_SCENE_PATH := "res://game.tscn"
+@export var GAME_SCENE_PATH := "res://game.tscn"
 @onready var button_select_audio: AudioStreamPlayer = $ButtonSelect
 @onready var button_pressed_audio: AudioStreamPlayer = $ButtonPressed
 @onready var is_mobile = OS.has_feature('mobile') or OS.has_feature('web_android') or OS.has_feature('web_ios')
 
 func _on_start_button_pressed():
-	button_pressed_audio.play()
 	LoadingScreen.load_scene(GAME_SCENE_PATH)
 
 

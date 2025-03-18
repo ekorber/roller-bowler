@@ -1,24 +1,29 @@
 extends Control
 class_name PauseMenu
 
-const MAIN_MENU_SCENE_PATH := "res://Features/Menus/main_menu.tscn"
-@onready var hud: Control = $"../HUD"
-var can_pause: bool = false
+signal paused
+signal unpaused
+
+@export var MAIN_MENU_SCENE_PATH: String = "res://Features/Menus/main_menu.tscn"
 @onready var button_select_audio: AudioStreamPlayer = $ButtonSelect
 @onready var button_pressed_audio: AudioStreamPlayer = $ButtonPressed
 @onready var is_mobile = OS.has_feature('mobile') or OS.has_feature('web_android') or OS.has_feature('web_ios')
+var can_pause: bool = true
+
+func _ready() -> void:
+	hide()
 
 func pause():
-	hud.hide()
 	visible = true
 	get_tree().paused = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	paused.emit()
 
 func unpause():
-	hud.show()
 	visible = false
 	get_tree().paused = false
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	unpaused.emit()
 
 
 func _process(_delta: float) -> void:
@@ -35,7 +40,6 @@ func _on_resume_button_pressed():
 
 
 func _on_quit_button_pressed():
-	button_pressed_audio.play()
 	LoadingScreen.load_scene(MAIN_MENU_SCENE_PATH)
 
 

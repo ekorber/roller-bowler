@@ -1,6 +1,6 @@
 extends Control
 
-const MAIN_MENU_SCENE_PATH := "res://Features/Menus/main_menu.tscn"
+@export var MAIN_MENU_SCENE_PATH: String = "res://Features/Menus/main_menu.tscn"
 @onready var button_select_audio: AudioStreamPlayer = $ButtonSelect
 @onready var button_pressed_audio: AudioStreamPlayer = $ButtonClick
 
