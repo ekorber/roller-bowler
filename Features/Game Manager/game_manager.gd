@@ -15,8 +15,6 @@ signal on_game_over
 @onready var hud_anim: AnimationPlayer = $HUD/AnimationPlayer
 @onready var respawn_location: Vector3 = player.global_position
 
-#@onready var soundtrack: RandomAudioStreamPlayer = $Soundtrack
-
 const MAIN_MENU_SCENE_PATH := "res://Features/Menus/main_menu.tscn"
 var game_playing: bool = false
 
