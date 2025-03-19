@@ -8,8 +8,8 @@ signal on_game_over
 
 @onready var player: Player = $Player
 @onready var intro_screen_anim: AnimationPlayer = $IntroScreen/AnimationPlayer
+@onready var victory_screen_anim: AnimationPlayer = $VictoryScreen/AnimationPlayer
 @onready var game_over_screen_anim: AnimationPlayer = $GameOverScreen/AnimationPlayer
-@onready var game_over_message_label: Label = $GameOverScreen/Panel/Message
 @onready var pause_menu: PauseMenu = $PauseMenu
 @onready var hud: Control = $HUD
 @onready var hud_anim: AnimationPlayer = $HUD/AnimationPlayer
@@ -55,9 +55,15 @@ func _process(delta: float) -> void:
 		game_over()
 
 func game_over():
+	if not game_playing:
+		return
+	
 	game_playing = false
 	pause_menu.can_pause = false
 	player.can_control_player = false
+	player.linear_velocity = Vector3.ZERO
+	player.angular_velocity = Vector3.ZERO
+	player.gravity_scale = 0
 	hud.hide()
 	
 	for child in get_children():
@@ -65,17 +71,41 @@ func game_over():
 			child.hide()
 	
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	game_over_message_label.text = 'Oops! Better luck next time!'
 	game_over_screen_anim.play('open_popup')
 	
 	on_game_over.emit()
 
 func on_checkpoint_reached(new_respawn_location: Vector3):
+	if not game_playing:
+		return
+	
 	respawn_location = new_respawn_location
 
 func respawn_at_checkpoint():
+	if not game_playing:
+		return
+	
 	player.global_position = respawn_location
 	player.linear_velocity = Vector3.ZERO
 	player.angular_velocity = Vector3.ZERO
 	player.rot_x = 0
 	player.rot_y = 0
+
+func on_victory():
+	if not game_playing:
+		return
+	
+	game_playing = false
+	pause_menu.can_pause = false
+	player.can_control_player = false
+	player.linear_velocity = Vector3.ZERO
+	player.angular_velocity = Vector3.ZERO
+	player.gravity_scale = 0
+	hud.hide()
+	
+	for child in get_children():
+		if child is MobileControls:
+			child.hide()
+	
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	victory_screen_anim.play('open_popup')

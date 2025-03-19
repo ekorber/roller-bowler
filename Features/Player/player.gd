@@ -16,6 +16,9 @@ var push_z: float = 0
 var max_push: float = 20
 
 func _physics_process(delta: float) -> void:
+	if not can_control_player:
+		return
+	
 	# Rotate level geometry
 	var camera_basis = camera.global_transform.basis
 	level_pivot.position = position

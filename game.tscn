@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c62mjpfsg8tgh"]
+[gd_scene load_steps=24 format=3 uid="uid://c62mjpfsg8tgh"]
 
 [ext_resource type="Script" uid="uid://bf5m38iuyvroa" path="res://Features/Game Manager/game_manager.gd" id="1_ryrav"]
 [ext_resource type="Script" uid="uid://dn0d18cd6nid7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="2_ryrav"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://e3hap0r4fxb0" path="res://Features/HUD/hud.tscn" id="8_j5wjh"]
 [ext_resource type="PackedScene" uid="uid://brvbqgk6uhgx1" path="res://Features/Menus/intro_screen.tscn" id="9_vef74"]
 [ext_resource type="PackedScene" uid="uid://yewlj2sou2rq" path="res://Features/Checkpoint System/checkpoint.tscn" id="10_hve3p"]
+[ext_resource type="PackedScene" uid="uid://b2338sxqltt5h" path="res://Features/Menus/VictoryScreen.tscn" id="10_lc2xo"]
 [ext_resource type="Script" uid="uid://b3mp1kcca5qj" path="res://Features/Advanced Audio/soundtrack.gd" id="12_iotsf"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_iotsf"]
@@ -28,8 +29,11 @@ duration = 1.0
 transition = 0
 ease = 2
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_iotsf"]
+size = Vector3(1000, 10, 1000)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_hve3p"]
-size = Vector3(10000, 10, 10000)
+size = Vector3(50, 10, 10)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vef74"]
 
@@ -42,9 +46,10 @@ sky = SubResource("Sky_hve3p")
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_ryrav")
-time_remaining = 60.0
+time_remaining = 5.0
 
 [node name="Player" parent="." node_paths=PackedStringArray("level_geometry", "level_pivot") instance=ExtResource("2_vef74")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.16468, 0)
 physics_material_override = SubResource("PhysicsMaterial_iotsf")
 can_sleep = false
 continuous_cd = false
@@ -71,7 +76,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.028, 10)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 physics_interpolation_mode = 1
-transform = Transform3D(-1, 0, 0, 0, 0.961524, 0.274721, 0, 0.274721, -0.961524, 0, 3, -7)
+transform = Transform3D(-1, 0, 0, 0, 0.961524, 0.274721, 0, 0.274721, -0.961524, 0, -0.164682, -7)
 attributes = SubResource("CameraAttributesPhysical_sb48q")
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
@@ -81,7 +86,7 @@ script = ExtResource("4_j5wjh")
 metadata/_custom_type_script = "uid://fvsasskjqshp"
 
 [node name="PhantomCamera3D" type="Node3D" parent="." node_paths=PackedStringArray("follow_target", "look_at_target")]
-transform = Transform3D(-0.851774, 0, 0, 0, 0.961521, 0.274701, 0, 0.27472, -0.961455, 0, 3, -7)
+transform = Transform3D(-0.841599, 0, 0, 0, 0.961521, 0.274701, 0, 0.27472, -0.961455, 0, -0.164682, -7)
 top_level = true
 script = ExtResource("2_ryrav")
 follow_mode = 2
@@ -94,10 +99,17 @@ look_at_offset = Vector3(0, 1, 0)
 metadata/_custom_type_script = "uid://dn0d18cd6nid7"
 
 [node name="DeathZone" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -147.483, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -31.9583, 0)
 script = ExtResource("6_mfdv2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DeathZone"]
+shape = SubResource("BoxShape3D_iotsf")
+
+[node name="VictoryZone" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.02644, 44.908)
+script = ExtResource("6_mfdv2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="VictoryZone"]
 shape = SubResource("BoxShape3D_hve3p")
 
 [node name="Environment" type="Node3D" parent="."]
@@ -112,6 +124,8 @@ transform = Transform3D(0.787129, -0.585956, 0.192573, 0, 0.312219, 0.95001, -0.
 
 [node name="GameOverScreen" parent="." instance=ExtResource("7_eow3j")]
 
+[node name="VictoryScreen" parent="." instance=ExtResource("10_lc2xo")]
+
 [node name="HUD" parent="." instance=ExtResource("8_j5wjh")]
 
 [node name="IntroScreen" parent="." instance=ExtResource("9_vef74")]
@@ -123,5 +137,6 @@ metadata/_custom_type_script = "uid://b3mp1kcca5qj"
 
 [connection signal="checkpoint_reached" from="Level Pivot/Level Geometry/Checkpoint" to="." method="on_checkpoint_reached"]
 [connection signal="player_entered" from="DeathZone" to="." method="respawn_at_checkpoint"]
+[connection signal="player_entered" from="VictoryZone" to="." method="on_victory"]
 [connection signal="paused" from="PauseMenu" to="HUD" method="hide"]
 [connection signal="unpaused" from="PauseMenu" to="HUD" method="show"]
