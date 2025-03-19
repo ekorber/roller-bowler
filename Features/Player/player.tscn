@@ -3,17 +3,17 @@
 [ext_resource type="Script" uid="uid://0eujvuudl1s5" path="res://Features/Player/player.gd" id="1_vguib"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_sb48q"]
+rough = true
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_wbfu4"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_xkndl"]
 
-[node name="Player" type="RigidBody3D" node_paths=PackedStringArray("level_geometry")]
+[node name="Player" type="RigidBody3D"]
+mass = 0.1
 physics_material_override = SubResource("PhysicsMaterial_sb48q")
-gravity_scale = 5.0
 continuous_cd = true
 script = ExtResource("1_vguib")
-level_geometry = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_wbfu4")
@@ -21,3 +21,10 @@ shape = SubResource("SphereShape3D_wbfu4")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
 mesh = SubResource("SphereMesh_xkndl")
 skeleton = NodePath("../..")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+top_level = true
+target_position = Vector3(0, -0.49, 0)
+hit_from_inside = true
+debug_shape_custom_color = Color(5.77569e-07, 0.593153, 0.732366, 1)
+debug_shape_thickness = 5
