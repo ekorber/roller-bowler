@@ -22,9 +22,16 @@ shape = SubResource("SphereShape3D_wbfu4")
 mesh = SubResource("SphereMesh_xkndl")
 skeleton = NodePath("../..")
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
+[node name="GroundPenetrationRaycast" type="RayCast3D" parent="."]
 top_level = true
 target_position = Vector3(0, -0.49, 0)
+hit_from_inside = true
+debug_shape_custom_color = Color(5.77569e-07, 0.593153, 0.732366, 1)
+debug_shape_thickness = 5
+
+[node name="IsGroundedRaycast" type="RayCast3D" parent="."]
+top_level = true
+target_position = Vector3(0, -0.55, 0)
 hit_from_inside = true
 debug_shape_custom_color = Color(5.77569e-07, 0.593153, 0.732366, 1)
 debug_shape_thickness = 5
