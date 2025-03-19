@@ -1,0 +1,73 @@
+[gd_scene load_steps=7 format=3 uid="uid://yewlj2sou2rq"]
+
+[ext_resource type="Script" uid="uid://dc06unfbs0wyn" path="res://Features/Checkpoint System/checkpoint.gd" id="1_cl86b"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cl86b"]
+radius = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_cl86b"]
+
+[sub_resource type="Animation" id="Animation_cl86b"]
+resource_name = "disappear"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 1),
+"transitions": PackedFloat32Array(1, -2, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1.5, 1.5, 1.5), Vector3(0, 0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_l6ynx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_78ro7"]
+_data = {
+&"RESET": SubResource("Animation_l6ynx"),
+&"disappear": SubResource("Animation_cl86b")
+}
+
+[node name="Checkpoint" type="Area3D"]
+script = ExtResource("1_cl86b")
+metadata/_custom_type_script = "uid://dc06unfbs0wyn"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_cl86b")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_cl86b")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_78ro7")
+}
